@@ -6,3 +6,20 @@ function buyCake() {
     info: "First redux action",
   };
 }
+
+//(previousState,acton) => newState
+const initialSate = {
+  numOfCakes: 10,
+};
+
+const reducer = (state = initialSate, action) => {
+  switch (action.type) {
+    case BUY_CAKE:
+      return {
+        ...state,
+        numOfCakes: state.numOfCakes - 1,
+      };
+    default:
+      return state;
+  }
+};
