@@ -1,6 +1,9 @@
 const redux = require("redux");
 const createStore = redux.createStore;
 const combineReducers = redux.combineReducers;
+const createLogger = require('redux-logger');
+const applyMiddleware = redux.applyMiddleware;
+const logger = createLogger.createLogger();
 
 const BUY_CAKE = "BUY_CAKE";
 const BUY_ICECREAM = "BUY_ICECREAM";
@@ -57,18 +60,16 @@ const rootReducer = combineReducers({
   icecream: icecreamReducer,
 });
 
-const store = createStore(rootReducer);
-console.log("Initial state", store.getState()); //Initial state { cake: { numOfCakes: 10 }, icecream: { numOfIcecream: 20 } }
+const store = createStore(rootReducer, applyMiddleware(logger));
+console.log("Initial state", store.getState());
 
-const unsubscribe = store.subscribe(() =>
-  console.log("Updated state", store.getState())
-);
+const unsubscribe = store.subscribe(() => {});
 
-store.dispatch(buyCake()); //Updated state { cake: { numOfCakes: 9 }, icecream: { numOfIcecream: 20 } }
-store.dispatch(buyCake()); //Updated state { cake: { numOfCakes: 8 }, icecream: { numOfIcecream: 20 } }
-store.dispatch(buyCake()); //Updated state { cake: { numOfCakes: 7 }, icecream: { numOfIcecream: 20 } }
+store.dispatch(buyCake());
+store.dispatch(buyCake());
+store.dispatch(buyCake());
 
-store.dispatch(buyIcecream()); //Updated state { cake: { numOfCakes: 7 }, icecream: { numOfIcecream: 19 } }
-store.dispatch(buyIcecream()); //Updated state { cake: { numOfCakes: 7 }, icecream: { numOfIcecream: 18 } }
+store.dispatch(buyIcecream());
+store.dispatch(buyIcecream());
 
 unsubscribe();
