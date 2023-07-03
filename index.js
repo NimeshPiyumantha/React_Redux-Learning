@@ -28,14 +28,14 @@ const reducer = (state = initialState, action) => {
 };
 
 const store = createStore(reducer);
-console.log("Initial state", store.getState());
+console.log("Initial state", store.getState()); //Initial state { numOfCakes: 10 }
 
 const unsubscribe = store.subscribe(() =>
   console.log("Updated state", store.getState())
 );
 
-store.dispatch(buyCake());
-store.dispatch(buyCake());
-store.dispatch(buyCake());
+store.dispatch(buyCake()); //Updated state { numOfCakes: 9 }
+store.dispatch(buyCake()); //Updated state { numOfCakes: 8 }
+store.dispatch(buyCake()); //Updated state { numOfCakes: 7 }
 
 unsubscribe();
