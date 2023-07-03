@@ -60,7 +60,7 @@ const rootReducer = combineReducers({
   icecream: icecreamReducer,
 });
 
-const store = createStore(rootReducer, applyMiddleware(logger));
+const store = createStore(rootReducer, applyMiddleware(logger));//add logger
 console.log("Initial state", store.getState());
 
 const unsubscribe = store.subscribe(() => {});
